@@ -1,0 +1,27 @@
+Docker-compose
+Permite ejecutar varios containers que dependan entre si, de manera que tu estbleces el orden en el que se ejecutaran,
+que variables necesitan, versiones...
+
+## Hacer la build de un docker-compose
+
+- Este comando creara la imagen y arrancara la serie de contenedores dependientes entre si
+$ docker-compose up
+
+- Arranca los contendores en detach mode
+$ docker-compose up -d
+
+- Lista los contenedores arrancados por docker-compose, este comando solo funciona en el directorio
+  en el que se encuentra el archivo docker-compose.yml
+$ docker-compose ps
+
+- Ejecutar consola interactiva dentro del container
+  #Este comando se logueara dentro del container con la imagen de postgres con las credenciales
+$ docker-compose exec db psql notesdb postgres
+
+- Ejecutar una shell dentro de un container
+  # docker-compose exec <service> sh
+$ docker-compose exec exec api sh
+
+- Leer los logs de un servicio
+  #docker-compose logs <service>
+$ docker-compose logs api

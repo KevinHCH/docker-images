@@ -1,0 +1,42 @@
+#Al ser un archivo YML todo se rige por las tabulaciones
+#de manera que un bloque hijo debe estar siempre por debajo de su padre 
+#Por alguna razon no se puede usar una version 1.0
+version: "3.8"
+
+#Apartado en el que se definen lo servicios que se van a consumir
+services:
+  #Se define que el servicio de db sera sacada de una imagen de postgres version 12
+  #Se enlaza a un volumen definido en el proprio proyecto
+  #Se establecen las credenciales
+  db:
+    image: postgres:12
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_PASSWORD: 63eaQB9wtLqmNBpg
+      POSTGRES_DB: notesdb
+  #El servicio de api consumira la db, por eso se define primero la db
+  api:
+  #El apartado de build permite definir el contexto y el archivo Dockerfile que va a leer
+  #Si solo existiera un archivo Dockerfile sin extension, no haria falta, docker-compose lo toma por defecto
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    #Se crean y enlazan los volumenes
+    #El primer volumen establece que no se enlazara con nadie por que no queremos esos archivos en 
+    #el host para su modificacion
+    #El otro volumen se enlaza con la ruta actual y la ruta del WORKDIR
+    volumes:
+      - /usr/app/node_modules
+      - ./:/usr/app
+    #Puertos por el que estara disponible y por que el funciona la app dentro de los contendores
+    ports:
+      - 3000:3000
+    #ENV_VARS que consume la api
+    environment:
+      DB_CONNECTION: pg
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_DATABASE: notesdb
+      DB_PASSWORD: 63eaQB9wtLqmNBpg

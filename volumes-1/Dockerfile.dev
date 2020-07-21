@@ -1,0 +1,14 @@
+#Se ha creado este archivo con la extension .dev para establecer que sera un
+#container DEV
+FROM node
+WORKDIR /usr/app
+COPY ./package.json ./
+RUN npm install
+
+COPY . .
+CMD ["npm", "run", "dev"]
+
+#Para ejecutar hacer la build de este container usaremos la flag -f (--file)
+#que nos permite establecer el archivo sobre el cual se creará la imagen
+#Ejemplo: docker build -t vue_image -f Dockerfile.dev 
+

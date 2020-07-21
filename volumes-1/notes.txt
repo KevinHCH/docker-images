@@ -1,0 +1,8 @@
+Cuando se crea una imagen en docker, los archivos que se copian en el contenedor
+se quedan en el contenedor, de manera que si se quiere modificar algo, se tendria
+que volver a generar una nueva imagen con este nuevo cambio.
+Para evitar eso Docker crea los volumenes.
+Basicamente son carpetas compartidas entre el container y el host
+
+Ejemplo:
+docker run -v <ruta_absoluta del host>:<ruta_absoluta del directorio de trabajo del contenedor> <nombre_imagen>
