@@ -1,0 +1,4 @@
+-Para crear un entorno de desarrollo con PHP basta con crear una imagen con apache+php
+-Establecer la carpeta de trabajo
+-Al instanciar el contenedor se debe establecer los volumenes
+$ docker run --name php_container -d -p 8080:80 -v $(pwd)/src:/var/www/html <image>
